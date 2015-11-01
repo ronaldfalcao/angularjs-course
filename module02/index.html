@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html ng-app="listaFilmes">
+<head>
+	<title>Lista de Filmes</title>
+
+	<script src='../lib/angular-1.4.7/angular.js'></script>
+
+	<script type="text/javascript">
+		var app = angular.module("listaFilmes",[]);
+		app.controller("listaFilmesController", function ($scope){
+			$scope.titulo = "Lista de Filmes";
+		});
+	</script>
+</head>
+<body ng-controller = "listaFilmesController">
+	<h1 ng-bind = "titulo"></h1>
+</body>
+</html>
