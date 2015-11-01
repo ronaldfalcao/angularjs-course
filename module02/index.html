@@ -3,16 +3,60 @@
 <head>
 	<title>Lista de Filmes</title>
 
+	<meta charset="UTF-8">
+
 	<script src='../lib/angular-1.4.7/angular.js'></script>
 
 	<script type="text/javascript">
 		var app = angular.module("listaFilmes",[]);
 		app.controller("listaFilmesController", function ($scope){
 			$scope.titulo = "Lista de Filmes";
+			$scope.filmes=[
+							{nomeFilme:"Contato", diretorFilme:"Robert Zemeckis", anoFilme:1997},
+							{nomeFilme: "O Exorcista", diretorFilme:"William Friedkin", anoFilme:1973},
+							{nomeFilme: "O Iluminado", diretorFilme:"Stanley Kubrick", anoFilme:1980},
+							{nomeFilme: "Psicose", diretorFilme:"Alfred Hitchcock", anoFilme:1960},
+							{nomeFilme: "O Massacre da Serra Elétrica", diretorFilme:"Tobe Hooper", anoFilme:1974},
+							{nomeFilme: "A noite dos Mortos Vivos", diretorFilme:"George A. Romero", anoFilme:1968}
+						];
+
+			$scope.adicionarFilme = function (nomeFilme,diretorFilme, anoFilme){
+				$scope.filmes.push({nomeFilme:nomeFilme, diretorFilme:diretorFilme,anoFilme:anoFilme});
+			}
 		});
 	</script>
 </head>
 <body ng-controller = "listaFilmesController">
 	<h1>{{titulo}}</h1>
+	<table>
+		<thead>
+			<td>
+				Nome do Filme
+			</td>
+			<td>
+				Diretor
+			</td>
+			<td>
+				Ano
+			</td>
+				
+		</thead>
+		<tbody ng-repeat = "filme in filmes">
+			<td>
+				{{filme.nomeFilme}}
+			</td>
+			<td>
+				{{filme.diretorFilme}}
+			</td>
+			<td>
+				{{filme.anoFilme}}
+			</td>				
+		</tbody>	
+	</table>
+
+	<input type="text" ng-model = "nomeFilme" placeholder="Nome do Filme"/>
+	<input type="text" ng-model = "diretorFilme" placeholder="Diretor"/>
+	<input type="text" ng-model = "anoFilme" placeholder="Ano"/>
+	<button ng-click = "adicionarFilme(nomeFilme, diretorFilme, anoFilme)">Adicionar Filme</button>
 </body>
 </html>
