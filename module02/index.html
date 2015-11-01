@@ -20,16 +20,26 @@
 							{nomeFilme: "A noite dos Mortos Vivos", diretorFilme:"George A. Romero", anoFilme:1968}
 						];
 
-			$scope.adicionarFilme = function (nomeFilme,diretorFilme, anoFilme){
-				$scope.filmes.push({nomeFilme:nomeFilme, diretorFilme:diretorFilme,anoFilme:anoFilme});
+			$scope.adicionarFilme = function (filme){
+				$scope.filmes.push(angular.copy(filme));
+				delete $scope.filme;
 			}
 		});
 	</script>
+	<style type="text/css">
+		.selecionado{
+			font-weight: bold;
+			background-color: #CCCCCC;	
+		}
+	</style>
 </head>
 <body ng-controller = "listaFilmesController">
 	<h1>{{titulo}}</h1>
 	<table>
 		<thead>
+			<td>
+				Selecionar	
+			</td>
 			<td>
 				Nome do Filme
 			</td>
@@ -41,7 +51,10 @@
 			</td>
 				
 		</thead>
-		<tbody ng-repeat = "filme in filmes">
+		<tbody ng-class = "{selecionado:filme.selecionado}" ng-repeat = "filme in filmes">
+			<td>
+				<input type = "checkbox" ng-model = "filme.selecionado"/>
+			</td>
 			<td>
 				{{filme.nomeFilme}}
 			</td>
@@ -54,9 +67,12 @@
 		</tbody>	
 	</table>
 
-	<input type="text" ng-model = "nomeFilme" placeholder="Nome do Filme"/>
-	<input type="text" ng-model = "diretorFilme" placeholder="Diretor"/>
-	<input type="text" ng-model = "anoFilme" placeholder="Ano"/>
-	<button ng-click = "adicionarFilme(nomeFilme, diretorFilme, anoFilme)">Adicionar Filme</button>
+	<input type="text" ng-model = "filme.nomeFilme" placeholder="Nome do Filme"/>
+	<input type="text" ng-model = "filme.diretorFilme" placeholder="Diretor"/>
+	<input type="text" ng-model = "filme.anoFilme" placeholder="Ano"/>
+	
+	<button ng-click = "adicionarFilme(filme)" ng-disabled="!(filme.nomeFilme && filme.diretorFilme && filme.anoFilme)">
+		Adicionar Filme
+	</button>
 </body>
 </html>
