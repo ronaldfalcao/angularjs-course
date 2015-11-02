@@ -1,78 +1,105 @@
 <!DOCTYPE html>
 <html ng-app="listaFilmes">
-<head>
-	<title>Lista de Filmes</title>
+	<head>
+		<title>Lista de Filmes</title>
 
-	<meta charset="UTF-8">
+		<meta charset="UTF-8">
 
-	<script src='../lib/angular-1.4.7/angular.js'></script>
+		<link rel="stylesheet" type="text/css" href="../lib/bootstrap-3.3.5-dist/css/bootstrap.css">
+		<script src='../lib/angular-1.4.7/angular.js'></script>
 
-	<script type="text/javascript">
-		var app = angular.module("listaFilmes",[]);
-		app.controller("listaFilmesController", function ($scope){
-			$scope.titulo = "Lista de Filmes";
-			$scope.filmes=[
-							{nomeFilme:"Contato", diretorFilme:"Robert Zemeckis", anoFilme:1997},
-							{nomeFilme: "O Exorcista", diretorFilme:"William Friedkin", anoFilme:1973},
-							{nomeFilme: "O Iluminado", diretorFilme:"Stanley Kubrick", anoFilme:1980},
-							{nomeFilme: "Psicose", diretorFilme:"Alfred Hitchcock", anoFilme:1960},
-							{nomeFilme: "O Massacre da Serra Elétrica", diretorFilme:"Tobe Hooper", anoFilme:1974},
-							{nomeFilme: "A noite dos Mortos Vivos", diretorFilme:"George A. Romero", anoFilme:1968}
-						];
+		<script type="text/javascript">
+			var app = angular.module("listaFilmes",[]);
+			app.controller("listaFilmesController", function ($scope){
+				$scope.titulo = "Lista de Filmes";
+				$scope.filmes=[
+								{nomeFilme:"Contato", diretorFilme:"Robert Zemeckis", anoFilme:1997},
+								{nomeFilme: "O Exorcista", diretorFilme:"William Friedkin", anoFilme:1973},
+								{nomeFilme: "O Iluminado", diretorFilme:"Stanley Kubrick", anoFilme:1980},
+								{nomeFilme: "Psicose", diretorFilme:"Alfred Hitchcock", anoFilme:1960},
+								{nomeFilme: "O Massacre da Serra Elétrica", diretorFilme:"Tobe Hooper", anoFilme:1974},
+								{nomeFilme: "A noite dos Mortos Vivos", diretorFilme:"George A. Romero", anoFilme:1968}
+							];
 
-			$scope.adicionarFilme = function (filme){
-				$scope.filmes.push(angular.copy(filme));
-				delete $scope.filme;
+				$scope.adicionarFilme = function (filme){
+					$scope.filmes.push(angular.copy(filme));
+					delete $scope.filme;
+				}
+			});
+		</script>
+		<style type="text/css">
+			
+			.selecionado{
+				font-weight: bold;
+				background-color: #CCCCCC;	
 			}
-		});
-	</script>
-	<style type="text/css">
-		.selecionado{
-			font-weight: bold;
-			background-color: #CCCCCC;	
-		}
-	</style>
-</head>
-<body ng-controller = "listaFilmesController">
-	<h1>{{titulo}}</h1>
-	<table>
-		<thead>
-			<td>
-				Selecionar	
-			</td>
-			<td>
-				Nome do Filme
-			</td>
-			<td>
-				Diretor
-			</td>
-			<td>
-				Ano
-			</td>
-				
-		</thead>
-		<tbody ng-class = "{selecionado:filme.selecionado}" ng-repeat = "filme in filmes">
-			<td>
-				<input type = "checkbox" ng-model = "filme.selecionado"/>
-			</td>
-			<td>
-				{{filme.nomeFilme}}
-			</td>
-			<td>
-				{{filme.diretorFilme}}
-			</td>
-			<td>
-				{{filme.anoFilme}}
-			</td>				
-		</tbody>	
-	</table>
 
-	<input type="text" ng-model = "filme.nomeFilme" placeholder="Nome do Filme"/>
-	<input type="text" ng-model = "filme.diretorFilme" placeholder="Diretor"/>
-	<input type="text" ng-model = "filme.anoFilme" placeholder="Ano"/>
-	
-	<button ng-click = "adicionarFilme(filme)" ng-disabled="!(filme.nomeFilme && filme.diretorFilme && filme.anoFilme)">
-		Adicionar Filme
-	</button>
-</body>
+			.jumbotron{
+				width: 45%;
+				margin-right: auto;
+				margin-left: auto;
+				margin-top: 20px;
+				padding-left: 5px;
+				padding-right: 5px;
+
+			}
+
+			.jumbotron h2{
+				text-align: center;
+			}
+
+			#botao-adicionar-filme{
+				margin-top: 10px;
+			}
+		</style>
+	</head>
+	<body ng-controller = "listaFilmesController">
+		<div class="jumbotron">	
+			<h2>{{titulo}}</h2>
+		</div>
+		<div class="jumbotron">	
+			<table class = "table table-striped">
+				<thead>
+					<td>
+						Selecionar	
+					</td>
+					<td>
+						Nome do Filme
+					</td>
+					<td>
+						Diretor
+					</td>
+					<td>
+						Ano
+					</td>
+						
+				</thead>
+				<tbody ng-class = "{selecionado:filme.selecionado}" ng-repeat = "filme in filmes">
+					<td>
+						<input type = "checkbox" ng-model = "filme.selecionado"/>
+					</td>
+					<td>
+						{{filme.nomeFilme}}
+					</td>
+					<td>
+						{{filme.diretorFilme}}
+					</td>
+					<td>
+						{{filme.anoFilme}}
+					</td>				
+				</tbody>	
+			</table>
+			
+			<hr/>
+
+			<input class="form-control" type="text" ng-model = "filme.nomeFilme" placeholder="Nome do Filme"/>
+			<input class="form-control"type="text" ng-model = "filme.diretorFilme" placeholder="Diretor"/>
+			<input class="form-control"type="text" ng-model = "filme.anoFilme" placeholder="Ano"/>
+			
+			<button id="botao-adicionar-filme" class="btn btn-primary" ng-click = "adicionarFilme(filme)" ng-disabled="!(filme.nomeFilme && filme.diretorFilme && filme.anoFilme)">
+				Adicionar Filme
+			</button>
+			{{contato}}
+		</div>
+	</body>
 </html>
